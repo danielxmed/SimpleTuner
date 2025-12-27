@@ -22,8 +22,8 @@
 #   - NUM_GPUS: (default: 8)
 # =============================================================================
 
-# Base image com PyTorch 2.5.1, CUDA 12.4, Ubuntu 22.04
-FROM runpod/pytorch:2.5.1-py3.11-cuda12.4.1-devel-ubuntu22.04
+# Base image com PyTorch 2.8.0, CUDA 12.8.1, Ubuntu 24.04 (oficial RunPod)
+FROM runpod/pytorch:1.0.2-py3.12-cuda12.8.1-cudnn-devel-ubuntu24.04
 
 LABEL maintainer="danielxmed"
 LABEL description="LongCat Video Full Finetune with SimpleTuner"
