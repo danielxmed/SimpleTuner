@@ -1595,7 +1595,7 @@ class Validation:
                     export_to_video(
                         image,
                         os.path.join(base_model_benchmark, filename),
-                        fps=self.config.framerate,
+                        fps=self.config.framerate or 30,
                     )
 
     def _update_state(self):
@@ -3358,7 +3358,7 @@ class Validation:
             export_to_video(
                 validation_image,
                 video_path,
-                fps=self.config.framerate,
+                fps=self.config.framerate or 30,
             )
             video_paths.append(video_path)
             validation_img_idx += 1

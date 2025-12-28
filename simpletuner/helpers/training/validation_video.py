@@ -65,7 +65,7 @@ def save_videos(save_dir, validation_images, validation_shortname, validation_re
             export_to_video(
                 validation_image,
                 video_path,
-                fps=config.framerate,
+                fps=config.framerate or 30,
             )
             video_paths.append(video_path)
         except Exception as e:

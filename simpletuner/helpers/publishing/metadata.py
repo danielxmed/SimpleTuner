@@ -384,7 +384,7 @@ def save_metadata_sample(
         export_to_gif(
             image=image,
             output_gif_path=output_path,
-            fps=StateTracker.get_args().framerate,
+            fps=StateTracker.get_args().framerate or 30,
         )
     elif isinstance(image, Image.Image):
         file_extension = "png"

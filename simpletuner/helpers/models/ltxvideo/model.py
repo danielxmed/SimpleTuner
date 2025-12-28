@@ -316,7 +316,7 @@ class LTXVideo(VideoModelFoundation):
             f"\n -> timestep: {prepared_batch['timesteps'].dtype}"
         )
         # Copied from a-r-r-o-w's script.
-        latent_frame_rate = self.config.framerate / 8
+        latent_frame_rate = (self.config.framerate or 25) / 8
         spatial_compression_ratio = 32
         # [0.32, 32, 32]
         rope_interpolation_scale = [

@@ -126,7 +126,7 @@ class TrainingSample:
                         video_byte_array,
                         self.image,  # a list of NumPy arrays
                         plugin="pyav",  # or "ffmpeg"
-                        fps=StateTracker.get_args().framerate,
+                        fps=StateTracker.get_args().framerate or 30,
                         extension=".mp4",
                         codec="libx264",
                     )
