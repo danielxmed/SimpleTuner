@@ -40,21 +40,34 @@ fi
 echo "  [OK] AWS credentials configured"
 
 # -----------------------------------------------------------------------------
-# 1.5. Update SimpleTuner code (get latest fixes)
+# 1.5. Clone/Update SimpleTuner code
 # -----------------------------------------------------------------------------
-echo "[1.5/6] Updating SimpleTuner code..."
+echo "[1.5/6] Setting up SimpleTuner code..."
+
+# SimpleTuner repo URL (can be overridden)
+SIMPLETUNER_REPO="${SIMPLETUNER_REPO:-https://github.com/danielxmed/SimpleTuner.git}"
 
 # Allow skipping update with SKIP_CODE_UPDATE=true
 if [ "${SKIP_CODE_UPDATE}" != "true" ]; then
-    if [ -d "${SIMPLETUNER_DIR}/.git" ]; then
+    if [ ! -d "${SIMPLETUNER_DIR}" ]; then
+        # SimpleTuner doesn't exist (e.g., network volume overwrote it)
+        echo "  [INFO] SimpleTuner not found, cloning..."
+        git clone "${SIMPLETUNER_REPO}" "${SIMPLETUNER_DIR}"
+        cd "${SIMPLETUNER_DIR}"
+        pip install -e . --quiet
+        echo "  [OK] SimpleTuner cloned and installed"
+        cd /workspace
+    elif [ -d "${SIMPLETUNER_DIR}/.git" ]; then
         cd "${SIMPLETUNER_DIR}"
         # Fetch and pull latest changes from main branch
         git fetch origin main --quiet 2>/dev/null || true
         git reset --hard origin/main --quiet 2>/dev/null || true
+        # Ensure it's installed
+        pip install -e . --quiet 2>/dev/null || true
         echo "  [OK] SimpleTuner updated to latest version"
         cd /workspace
     else
-        echo "  [WARN] SimpleTuner .git directory not found, skipping update"
+        echo "  [WARN] SimpleTuner directory exists but no .git, skipping update"
     fi
 else
     echo "  [SKIP] Code update disabled (SKIP_CODE_UPDATE=true)"
